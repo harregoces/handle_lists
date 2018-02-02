@@ -134,7 +134,7 @@ public class CallDispatcher {
             CallListenerCollection col = (CallListenerCollection)this.listeners.get(callName);
             col.addListener(listener, autoRemove);
             
-            // check the event queue
+            // check the call queue
             ArrayList calls = this.queue.getQueuedCalls(callName);
             
             for (Iterator iter = calls.iterator(); iter.hasNext();) {

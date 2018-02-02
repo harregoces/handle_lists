@@ -17,7 +17,7 @@ public class DebugHandler implements CallListener{
     public void handleCall(Call c) throws Exception {
         System.out.println("Event caught by '" + this.name + "'");
         System.out.println("Event-name    : " + c.getName());
-        System.out.println("Event-context : " + ((Agent) (c.getContext())).getName());
+        //System.out.println("Event-context : " + ((Agent) (c.getContext())).getName());
         System.out.println("in queue      : " + c.isQueued());
         System.out.println();
     }

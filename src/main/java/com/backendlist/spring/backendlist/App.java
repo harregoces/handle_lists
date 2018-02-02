@@ -5,22 +5,16 @@ public class App
 	
     public static void main( String[] args ) throws Exception {
     	
-    	Agent cus1 = new Agent("Stephan Schmidt" , 1);
-        cus1.login();
+    	CallListener echo = new DebugHandler();
+    	CallListener echo1 = new EchoHandler();
+    	CallDispatcher disp = CallDispatcher.getInstance();
         
-        Agent cus2 = new Agent("Andreas Foerch",2);
-        cus2.login();
+    	disp.addListener("call 1", echo);
+    	disp.addListener("call 1", echo1);
         
-        Agent cus3 = new Agent("Andreas Foerch",2);
-        cus3.login();
-        
-        
-        CallListener echo = new DebugHandler("MyList");
-        CallDispatcher disp = CallDispatcher.getInstance();
-        disp.addListener("onLogin", echo);
-        
-        
-        
+    	Call c = (Call) disp.triggerCall("call 1", true);
+    	Call c2 = (Call) disp.triggerCall("call 1", true);
+    	
     }
     
     
