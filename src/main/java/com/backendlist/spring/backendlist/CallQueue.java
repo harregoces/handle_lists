@@ -2,14 +2,25 @@ package com.backendlist.spring.backendlist;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class CallQueue {
 
+	private int limit = 10;
+	
 	/**
     * All queued calls
     */
-    ArrayList<Call> calls = new ArrayList<Call>();
-	    
+    Queue<Call> calls = new LinkedList<Call>();
+	
+    /**
+     * All queued calls
+     */
+     Queue<Call> callBacks = new LinkedList<Call>();
+     
+     
+    
     /**
      * Add a new call to the queue.
      * 
@@ -19,8 +30,18 @@ public class CallQueue {
      * @param c      Call that will be added
      */
      public void addCall(Call c) {
-         c.queueCall();
-         this.calls.add(c);
+    	 
+    	 if(this.calls.size() < limit) {
+    		 c.queueCall();
+             this.calls.add(c);
+    	 } else {
+    		 
+    		 this.callBacks.add(c);
+    		 //more than ten, process queue for callBack
+    		 //System.out.println("Call to the callback list");
+    	 }
+    	 
+         
      }
 	    
      
@@ -29,11 +50,19 @@ public class CallQueue {
       * 
       * @return   ArrayList with all Calls
       */
-      public ArrayList<Call> getQueuedCalls() {
+      public Queue<Call> getQueuedCalls() {
           return this.calls;
       }
       
-      
+      /**
+       * Get all queued Calls
+       * 
+       * @return   ArrayList with all Calls
+       */
+       public Queue<Call> getQueuedCallBacks() {
+           return this.callBacks;
+       }
+       
       
       /**
        * Get queued calls of a specific call name
@@ -41,8 +70,8 @@ public class CallQueue {
        * @param    callName       name of the call
        * @return   queued calls
        */
-       public ArrayList<Call> getQueuedCalls(String callName) {
-           ArrayList<Call> qCalls = new ArrayList<Call>();
+       public Queue<Call> getQueuedCalls(String callName) {
+    	   Queue<Call> qCalls = new LinkedList<Call>();
            
            for (Iterator<Call> iter = this.calls.iterator(); iter.hasNext();) {
                Call c = (Call)iter.next();
