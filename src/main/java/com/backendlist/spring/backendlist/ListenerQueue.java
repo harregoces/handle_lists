@@ -27,12 +27,17 @@ public class ListenerQueue {
 	*/
 	private List<Handler> listeners = new LinkedList<Handler>();
 
+	/**
+	 * Return list of listeners. 
+	 *
+	 * @return      Listo of listeners
+	 */
 	public List<Handler> getListeners() {
 		return listeners;
 	}
 	
 	/**
-	 * Add a new call listener to the collection
+	 * Add a new call listener to the List
 	 * 
 	 * @param listener       Listener to add
 	 * @return               amount of call listeners in this collection
@@ -43,10 +48,10 @@ public class ListenerQueue {
 	 }
    
 	/**
-	* Propagate an call to all listeners in this collection
+	* Propagate an call to all listeners
 	* 
-	* @param e      event to propagate
-	* @return       event
+	* @param e      call to propagate
+	* @return       boolean, true if the call was attended, false otherwise
 	*/
 	public boolean propagate(Call c) throws Exception {
 		  
@@ -62,7 +67,11 @@ public class ListenerQueue {
 	      
 	}
 	
-	
+	/**
+	* get and ordered list of the operator
+	* 
+	* @return     Ordered list
+	*/
 	public List<Handler> orderListenerQueue () {
 		Collections.sort(this.listeners,new ListenerComparator());
 		return this.listeners;

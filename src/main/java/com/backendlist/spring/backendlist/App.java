@@ -5,6 +5,9 @@ import java.util.concurrent.TimeUnit;
 
 public class App 
 {
+	/*
+	 * Dispatcher var
+	 */
 	public static Dispatcher disp = Dispatcher.getInstance();
 	
     public static void main( String[] args ) throws Exception {
@@ -15,43 +18,52 @@ public class App
     	
     }
 
-    public static void createCalls() {
-    	
-    	Thread t1 = new Thread(new Runnable() {
-    		
-    		public void run() {
-    			
-    			int i = 0;
-    			
-    			while(i<100) {
-    				
-    				try {
-    					
-    					i++;
-        				System.out.println("CallCreateer : " + i);
-        				
-        				Call c = new Call("CallNumber : " + i);
-    					disp.getCallQueue().addCall(c);
-    					
-    					int max = 5;
-    					int min = 1;
-    					Random randomNumb = new Random();
-    					int r = randomNumb.nextInt(max-min) + min;
-    					
-    					Thread.sleep( TimeUnit.SECONDS.toMillis(r) );
-    				} catch (Exception e) {
-    					e.printStackTrace();
-    				}
-    				
-    			}
-    			
-    		}
-    		
-    	});
     
-    	t1.start();
-    }
+	/**
+	 * Create 100 calls in background in a range from 1 to 5 second.
+	 * The goal is to simulate real entrance calls to the call center.
+	 */
+	public static void createCalls() {
+		
+		Thread t1 = new Thread(new Runnable() {
+			
+			public void run() {
+				
+				int i = 0;
+				
+				while(i<100) {
+					
+					try {
+						
+						i++;
+	    				System.out.println("CallCreateer : " + i);
+			
+    					Call c = new Call("CallNumber : " + i);
+						disp.getCallQueue().addCall(c);
+						
+						int max = 5;
+						int min = 1;
+						Random randomNumb = new Random();
+						int r = randomNumb.nextInt(max-min) + min;
+						
+						Thread.sleep( TimeUnit.SECONDS.toMillis(r) );
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					
+				}
+				
+			}
+			
+		});
+	
+		t1.start();
+	}
     
+	
+	/**
+	 * Create 7 agents, 5 with operator role, 1 with supervisor role and 1 with director role
+	 */
     public static void CreateAgents() throws Exception {
     	
     	//create agent
@@ -72,6 +84,9 @@ public class App
 		
     }
     
+    /**
+	 * Call Dispatcher.dispatchCall every one second in background to handle every entrance call.
+	 */
     public static void handleCalls() {
     	
     	Thread t1 = new Thread(new Runnable() {

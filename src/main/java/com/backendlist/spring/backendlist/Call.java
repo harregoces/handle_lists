@@ -9,16 +9,30 @@ public class Call {
     private boolean isAttended = false;
     
     
+    /**
+	* get if the call has been attended
+	* 
+	* @return isAttended       Boolean
+	*/
 	public boolean isAttended() {
 		return isAttended;
 	}
 
-
+	/**
+	* Set if a call has been attended
+	* 
+	* @param isAttended       Boolean
+	*/
 	public void setAttended(boolean isAttended) {
 		this.isAttended = isAttended;
 	}
 
 
+	/**
+	* Set agent
+	* 
+	* @param agent    the agent who will attend the call. 
+	*/
 	public void setAgent(Agent agent) {
 		this.agent = agent;
 	}
@@ -27,7 +41,7 @@ public class Call {
 	/**
 	* Create a new call
 	* 
-	* @param name       identifier of the call
+	* @param name       name of the call
 	*/
 	public Call(String name) {
 		this.name = name;
@@ -37,8 +51,8 @@ public class Call {
 	 /**
 	  * Create a new call
 	  * 
-	  * @param name       name of the call
-	  * @param context    context of the call
+	  * @param name     name of the call
+	  * @param agent    the agent who will attend the call.
 	  */
 	 public Call(String name, Agent agent) {
 	     this.name    = name;
@@ -77,6 +91,7 @@ public class Call {
 		return this.inQueue;
 	}
   
+	
 	/**
 	* Get the name of the call
 	* 
@@ -87,9 +102,9 @@ public class Call {
 	}
 
 	/**
-	* Get the call context
+	* Get the call agent
 	* 
-	* @return   Context of the call
+	* @return   Agent of the call
 	*/
 	public Agent getAgent() {
 		return this.agent;

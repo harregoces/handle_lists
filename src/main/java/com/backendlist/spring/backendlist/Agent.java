@@ -6,6 +6,10 @@ import java.util.concurrent.TimeUnit;
 
 public class Agent implements Handler {
 
+	/**
+	 * enum role to handle differents agent roles. 
+	 * Notice the comparator function.
+	 */
 	public enum ROLE { 
 		OPERATOR(1), 
 		SUPERVISOR(2), 
@@ -26,6 +30,7 @@ public class Agent implements Handler {
 		};
 		  
 	}
+	
 	private ROLE role_id;
 	private String name;
 	private boolean isBusy = false;
