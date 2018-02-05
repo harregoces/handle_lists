@@ -1,7 +1,5 @@
 package com.backendlist.spring.backendlist;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -64,23 +62,6 @@ public class CallQueue {
        }
        
       
-      /**
-       * Get queued calls of a specific call name
-       * 
-       * @param    callName       name of the call
-       * @return   queued calls
-       */
-       public Queue<Call> getQueuedCalls(String callName) {
-    	   Queue<Call> qCalls = new LinkedList<Call>();
-           
-           for (Iterator<Call> iter = this.calls.iterator(); iter.hasNext();) {
-               Call c = (Call)iter.next();
-               if (c.getName().equals(callName)) {
-                   qCalls.add(c);
-               }
-           }
-           return qCalls;
-       }
 
        /**
         * Clear the call queue

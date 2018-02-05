@@ -12,6 +12,7 @@ public class App
     	CreateAgents();
     	createCalls();
     	handleCalls();
+    	
     }
 
     public static void createCalls() {
@@ -22,22 +23,22 @@ public class App
     			
     			int i = 0;
     			
-    			while(true) {
+    			while(i<100) {
     				
     				try {
     					
     					i++;
-        				//System.out.println("CallCreateer : " + i);
+        				System.out.println("CallCreateer : " + i);
         				
         				Call c = new Call("CallNumber : " + i);
     					disp.getCallQueue().addCall(c);
     					
-    					int max = 10;
+    					int max = 5;
     					int min = 1;
     					Random randomNumb = new Random();
-    					int r = min + randomNumb.nextInt(max);
+    					int r = randomNumb.nextInt(max-min) + min;
     					
-    					Thread.sleep( TimeUnit.SECONDS.toMillis(1) );
+    					Thread.sleep( TimeUnit.SECONDS.toMillis(r) );
     				} catch (Exception e) {
     					e.printStackTrace();
     				}
@@ -54,19 +55,19 @@ public class App
     public static void CreateAgents() throws Exception {
     	
     	//create agent
-    	for(int i = 0; i < 10; i ++) {
+    	for(int i = 0; i < 5; i ++) {
 
-			Handler agent = new Agent("Agent Name " + i, 1);
+			Handler agent = new Agent("Agent Name " + i, Agent.ROLE.OPERATOR);
 			disp.addListener(agent);
 			
 		}
     	
     	//create 1 supervisor
-    	Handler supervisor = new Agent("Supervisor Name ", 2);
+    	Handler supervisor = new Agent("Supervisor Name ", Agent.ROLE.SUPERVISOR);
 		disp.addListener(supervisor);
 		
 		//create 1 director
-    	Handler director = new Agent("Director Name ", 3);
+    	Handler director = new Agent("Director Name ", Agent.ROLE.DIRECTOR);
 		disp.addListener(director);
 		
     }
@@ -77,16 +78,15 @@ public class App
     		public void run() {
     			
     			while(true) {
-    				
     				try {
 						disp.dispatchCall();
+						Thread.sleep( TimeUnit.SECONDS.toMillis(1) );
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
+						System.out.println(e.getMessage());
 						e.printStackTrace();
 					}
     				
     			}
-    			
     		}
     	});
     	

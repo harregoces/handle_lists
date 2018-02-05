@@ -66,10 +66,11 @@ public class Dispatcher {
 	public void dispatchCall() throws Exception {
 	
 		Queue<Call> calls = this.getCallQueue().getQueuedCalls();
-		
+		System.out.println("Call size : " + calls.size());
 		while(!calls.isEmpty() ) {
 			Call c = (Call) calls.element();
 			if(this.listeners.propagate(c) ) {
+				
 				//remove the call from queue
 				calls.remove();
 				
@@ -77,6 +78,9 @@ public class Dispatcher {
 				if(!this.getCallQueue().getQueuedCallBacks().isEmpty()) {
 					this.getCallQueue().addCall(this.getCallQueue().getQueuedCallBacks().remove());
 				}
+			} else {
+				//there is nor agent available
+				break;
 			}
 		}
 		

@@ -1,14 +1,46 @@
 package com.backendlist.spring.backendlist;
 
+import java.util.Comparator;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class Agent implements Handler {
 
-	private int role_id;
+	public enum ROLE { 
+		OPERATOR(1), 
+		SUPERVISOR(2), 
+		DIRECTOR(3); 
+		
+		private final int level;
+
+		ROLE(int l) {
+			level = l;
+		}
+
+		int getLevel(){ return level; }  
+
+		public static Comparator<ROLE> RoleComparator = new Comparator<ROLE>() {
+			public int compare(ROLE r1, ROLE d2) {
+				return r1.getLevel() - d2.getLevel();
+			}
+		};
+		  
+	}
+	private ROLE role_id;
 	private String name;
 	private boolean isBusy = false;
+	private int amountOfCalls = 0;
 	
+	
+	
+	public int getAmountOfCalls() {
+		return amountOfCalls;
+	}
+
+	public void setAmountOfCalls(int amountOfCalls) {
+		this.amountOfCalls = amountOfCalls;
+	}
+
 	public boolean isBusy() {
 		return isBusy;
 	}
@@ -19,18 +51,18 @@ public class Agent implements Handler {
 
 	private Dispatcher disp = null;
 	
-	public Agent(String name, int role_id) {
+	public Agent(String name, ROLE role_id) {
 		System.out.println("Agent : " + name);
         this.name    = name;
         this.role_id = role_id;
         this.disp    = Dispatcher.getInstance();
     }
 
-	public int getRole_id() {
+	public ROLE getRole_id() {
 		return role_id;
 	}
 
-	public void setRole_id(int role_id) {
+	public void setRole_id(ROLE role_id) {
 		this.role_id = role_id;
 	}
 
@@ -65,7 +97,7 @@ public class Agent implements Handler {
 			
 			//mock attend the call 
 			this.attendCall(c);
-			System.out.println("User " + this.getName() + " is attendin the call : " + c.getName() );
+			System.out.println("User " + this.getName() + " is attendin the call : " + c.getName() + " amount of calls today : " + this.amountOfCalls );
 			return true;
 		}
 		
@@ -83,14 +115,15 @@ public class Agent implements Handler {
 					int max = 10;
 					int min = 5;
 					Random randomNumb = new Random();
-					int r = min + randomNumb.nextInt(max);
+					int r = randomNumb.nextInt(max-min) + min;
 					
 					//time to attend the call
 					Thread.sleep( TimeUnit.SECONDS.toMillis(r) );
 					
+					//the call was attended
 					isBusy = false;
+					amountOfCalls++;
 					c.cancel();
-					//System.out.println("Call was attended, time : " + r);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
