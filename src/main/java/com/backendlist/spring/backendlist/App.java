@@ -37,8 +37,7 @@ public class App
     					Random randomNumb = new Random();
     					int r = min + randomNumb.nextInt(max);
     					
-    					//TimeUnit.SECONDS.toMillis(1)
-    					Thread.sleep( 500 );
+    					Thread.sleep( TimeUnit.SECONDS.toMillis(1) );
     				} catch (Exception e) {
     					e.printStackTrace();
     				}

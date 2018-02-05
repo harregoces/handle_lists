@@ -86,7 +86,7 @@ public class Agent implements Handler {
 					int r = min + randomNumb.nextInt(max);
 					
 					//time to attend the call
-					Thread.sleep( TimeUnit.SECONDS.toMillis(9) );
+					Thread.sleep( TimeUnit.SECONDS.toMillis(r) );
 					
 					isBusy = false;
 					c.cancel();

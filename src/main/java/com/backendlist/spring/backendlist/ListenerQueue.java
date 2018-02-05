@@ -58,4 +58,8 @@ public class ListenerQueue {
 	      
 	}
 	
+	public Queue<Handler> orderListenerQueue () {
+		return this.listeners;
+	}
+	
 }
