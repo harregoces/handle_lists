@@ -97,7 +97,7 @@ public class Agent implements Handler {
 			
 			//mock attend the call 
 			this.attendCall(c);
-			System.out.println("User " + this.getName() + " is attendin the call : " + c.getName() + " amount of calls today : " + this.amountOfCalls );
+			System.out.println("User " + this.getName() + " is attending the call : " + c.getName() + " amount of calls today : " + this.amountOfCalls );
 			return true;
 		}
 		

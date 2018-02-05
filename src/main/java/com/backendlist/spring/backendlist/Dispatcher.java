@@ -11,7 +11,11 @@ public class Dispatcher {
 	* Stores listeners, that handle all calls
 	*/
 	private ListenerQueue listeners = new ListenerQueue();
-     
+
+	public ListenerQueue getListenerQueue () {
+		return listeners;
+	}
+	
     
 	/**
 	* Queue that stores the triggered events so they

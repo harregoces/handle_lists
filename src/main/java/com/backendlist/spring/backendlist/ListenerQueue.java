@@ -27,6 +27,10 @@ public class ListenerQueue {
 	*/
 	private List<Handler> listeners = new LinkedList<Handler>();
 
+	public List<Handler> getListeners() {
+		return listeners;
+	}
+	
 	/**
 	 * Add a new call listener to the collection
 	 * 
